@@ -4,11 +4,6 @@ inputs:
   images:
     description: 'Images to update'
     required: true
-    default: []
-  who-to-greet:
-    description: 'Who to greet'
-    required: true
-    default: []
 runs:
   using: 'node22'
   main: 'dist/index.js'
