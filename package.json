@@ -21,7 +21,9 @@
   "homepage": "https://github.com/Foxite/trigger-update#readme",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.0"
+    "@actions/github": "^6.0.0",
+    "jwa": "^2.0.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.3"
