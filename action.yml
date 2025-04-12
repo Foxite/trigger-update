@@ -2,7 +2,7 @@ name: 'Trigger Watchtower update'
 description: 'Call AuthenticatedGlue to trigger an update for one or more images.'
 inputs:
   images:
-    description: 'Images to update'
+    description: 'Images to update, comma separated'
     required: true
 runs:
   using: 'node20'
