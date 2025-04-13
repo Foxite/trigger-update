@@ -1,6 +1,18 @@
 name: 'Trigger Watchtower update'
 description: 'Call AuthenticatedGlue to trigger an update for one or more images.'
 inputs:
+  callUrl:
+    description: 'AuthenticatedGlue url'
+    required: true
+  privateKey:
+    description: 'PEM encoded private key'
+    required: true
+  keyId:
+    description: 'JWT kid claim'
+    required: true
+  algorithm:
+    description: '/(RS|PS|ES|HS)(256|384|512)/'
+    required: true
   images:
     description: 'Images to update, comma separated'
     required: true
