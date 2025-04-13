@@ -4,9 +4,9 @@ Sends a JWT-authenticated request to [AuthenticatedGlue](https://github.com/Foxi
 ## Inputs
 All inputs are required.
 
-| key        | description                                              |
+| Key        | Description                                              |
 |------------|----------------------------------------------------------|
-| glueUrl    | The full URL where AuthenticatedGlue is accessible from. |
+| glueUrl    | The full URL where AuthenticatedGlue is accessible from. | 
 | privateKey | PEM encoded private key for signing JWTs.                |
 | keyId      | The JWT kid value.                                       |
 | algorithm  | JWT signing algorithm. /(RS\|PS\|ES\|HS)(256\|384\|512)/ |
