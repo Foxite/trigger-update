@@ -12,6 +12,8 @@ All inputs are required.
 | algorithm  | JWT signing algorithm. /(RS\|PS\|ES\|HS)(256\|384\|512)/ |
 | images     | A comma-separated list of images to update.              |
 
+To generate a signing key you could use a tool such as https://github.com/bspk/json-web-key-generator
+
 ## Outputs
 None
 
