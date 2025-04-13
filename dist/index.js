@@ -28786,9 +28786,9 @@ function getInput(key) {
     if (process.env.MODE === "DEBUG") {
         return {
             "glueUrl": "http://localhost:5134",
-            "privateKey": "-----BEGIN PRIVATE KEY-----\nME4CAQAwEAYHKoZIzj0CAQYFK4EEACIENzA1AgEBBDBMw9yCwBqMMpuNMmyQsYQj\nsk7/6aUMzhZl8E64E8vduWvhqA+S3ErqkojPmfrmbYg=\n-----END PRIVATE KEY-----",
-            "keyId": "sig-1744467848",
-            "algorithm": "ES384",
+            "privateKey": "-----BEGIN PRIVATE KEY-----\nMGACAQAwEAYHKoZIzj0CAQYFK4EEACMESTBHAgEBBEIBYts8Uc7CBBi4qCKVw1hF\nxUS62xeMqZWXfhaozCYluTkCxFVjMgk3O+0nNif9vTBss92ZPUBPUmg7kLW58Ioi\nnJ8=\n-----END PRIVATE KEY-----",
+            "keyId": "authenticatedglue",
+            "algorithm": "ES512",
             "images": "testimage,testimage2",
         }[key];
     } else {
@@ -28807,7 +28807,6 @@ async function runJob() {
     }
 
     const jwt = makeJwt(algorithm, keyId, privateKey, images);
-    console.log(jwt);
     await callUpdate(glueUrl, jwt)
 }
 
