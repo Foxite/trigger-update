@@ -1,6 +1,6 @@
-import * as actionsCore from "@actions/core";
-import * as uuid from "uuid";
-import jwa from "jwa";
+const actionsCore = require("@actions/core");
+const uuid = require("uuid");
+const jwa = require("jwa");
 
 function getInput(key) {
     if (process.env.MODE === "DEBUG") {
@@ -70,10 +70,10 @@ async function callUpdate(callUrl, jwt) {
 }
 
 if (process.env.MODE === "DEBUG") {
-    await runJob();
+    runJob();
 } else {
     try {
-        await runJob();
+        runJob();
     } catch (error) {
         actionsCore.setFailed(error.message);
     }

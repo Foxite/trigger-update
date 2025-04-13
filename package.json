@@ -14,8 +14,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "type": "module",
+  "license": "MIT",
+  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Foxite/trigger-update/issues"
   },
