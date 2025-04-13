@@ -1,7 +1,7 @@
 name: 'Trigger Watchtower update'
 description: 'Call AuthenticatedGlue to trigger an update for one or more images.'
 inputs:
-  callUrl:
+  glueUrl:
     description: 'AuthenticatedGlue url'
     required: true
   privateKey:

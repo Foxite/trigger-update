@@ -28785,7 +28785,7 @@ const jwa = __nccwpck_require__(8622);
 function getInput(key) {
     if (process.env.MODE === "DEBUG") {
         return {
-            "callUrl": "http://localhost:5134/notify",
+            "glueUrl": "http://localhost:5134",
             "privateKey": "-----BEGIN PRIVATE KEY-----\nME4CAQAwEAYHKoZIzj0CAQYFK4EEACIENzA1AgEBBDBMw9yCwBqMMpuNMmyQsYQj\nsk7/6aUMzhZl8E64E8vduWvhqA+S3ErqkojPmfrmbYg=\n-----END PRIVATE KEY-----",
             "keyId": "sig-1744467848",
             "algorithm": "ES384",
@@ -28797,7 +28797,7 @@ function getInput(key) {
 }
 
 async function runJob() {
-    const callUrl = getInput("callUrl");
+    const glueUrl = getInput("glueUrl");
     const privateKey = getInput("privateKey");
     const keyId = getInput("keyId");
     const algorithm = getInput("algorithm");
@@ -28808,7 +28808,7 @@ async function runJob() {
 
     const jwt = makeJwt(algorithm, keyId, privateKey, images);
     console.log(jwt);
-    await callUpdate(callUrl, jwt)
+    await callUpdate(glueUrl, jwt)
 }
 
 function makeJwt(alg, keyId, privateKey, images) {
@@ -28835,8 +28835,8 @@ function makeJwt(alg, keyId, privateKey, images) {
     return signBody + "." + signature;
 }
 
-async function callUpdate(callUrl, jwt) {
-    const result = await fetch(callUrl, {
+async function callUpdate(glueUrl, jwt) {
+    const result = await fetch(`${glueUrl}/notify`, {
         method: "POST",
         headers: {
             "content-type": "application/jwt"
