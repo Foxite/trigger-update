@@ -1,19 +1,33 @@
-const core = require("@actions/core");
-//const github = require("@actions/github");
-const uuid = require("uuid");
-const jwa = require("jwa")
+import * as actionsCore from "@actions/core";
+import * as uuid from "uuid";
+import jwa from "jwa";
+
+function getInput(key) {
+    if (process.env.MODE === "DEBUG") {
+        return {
+            "callUrl": "http://localhost:5134/notify",
+            "privateKey": "-----BEGIN PRIVATE KEY-----\nME4CAQAwEAYHKoZIzj0CAQYFK4EEACIENzA1AgEBBDBMw9yCwBqMMpuNMmyQsYQj\nsk7/6aUMzhZl8E64E8vduWvhqA+S3ErqkojPmfrmbYg=\n-----END PRIVATE KEY-----",
+            "keyId": "sig-1744467848",
+            "algorithm": "ES384",
+            "images": "testimage,testimage2",
+        }[key];
+    } else {
+        return actionsCore.getInput(key);
+    }
+}
 
 async function runJob() {
-    const callUrl = core.getInput("callUrl");
-    const privateKey = core.getInput("privateKey");
-    const keyId = core.getInput("keyId");
-    const algorithm = core.getInput("algorithm");
-    const images = core.getInput("images").split(",");
+    const callUrl = getInput("callUrl");
+    const privateKey = getInput("privateKey");
+    const keyId = getInput("keyId");
+    const algorithm = getInput("algorithm");
+    const images = getInput("images").split(",");
     if (images.length === 0) {
         throw new Error("No images defined.");
     }
 
     const jwt = makeJwt(algorithm, keyId, privateKey, images);
+    console.log(jwt);
     await callUpdate(callUrl, jwt)
 }
 
@@ -42,18 +56,25 @@ function makeJwt(alg, keyId, privateKey, images) {
 }
 
 async function callUpdate(callUrl, jwt) {
-    await fetch({
+    const result = await fetch(callUrl, {
         method: "POST",
-        url: callUrl,
         headers: {
             "content-type": "application/jwt"
         },
         body: jwt,
-    })
+    });
+
+    if (result.status < 200 || result.status >= 300) {
+        throw new Error(`Invalid response code: ${result.status} ${result.statusText}\n${await result.text()}`);
+    }
 }
 
-try {
+if (process.env.MODE === "DEBUG") {
     await runJob();
-} catch (error) {
-    core.setFailed(error.message);
+} else {
+    try {
+        await runJob();
+    } catch (error) {
+        actionsCore.setFailed(error.message);
+    }
 }
